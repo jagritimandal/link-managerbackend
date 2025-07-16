@@ -1,0 +1,121 @@
+
+paths:
+  /link:
+    get:
+      summary: Get all saved links
+      tags:
+        - Links
+      responses:
+        '200':
+          description: A list of links
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Link'
+
+    post:
+      summary: Add a new link
+      tags:
+        - Links
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewLink'
+      responses:
+        '201':
+          description: Link created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Link'
+        '400':
+          description: Invalid input
+
+  /link/{id}:
+    put:
+      summary: Update a link by ID
+      tags:
+        - Links
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewLink'
+      responses:
+        '200':
+          description: Link updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Link'
+        '400':
+          description: Update failed
+
+    delete:
+      summary: Delete a link by ID
+      tags:
+        - Links
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Link deleted
+        '400':
+          description: Delete failed
+
+components:
+  schemas:
+    Link:
+      type: object
+      properties:
+        _id:
+          type: string
+        title:
+          type: string
+        url:
+          type: string
+        category:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        notes:
+          type: string
+        date:
+          type: string
+          format: date-time
+
+    NewLink:
+      type: object
+      required:
+        - title
+        - url
+      properties:
+        title:
+          type: string
+        url:
+          type: string
+        category:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        notes:
+          type: string

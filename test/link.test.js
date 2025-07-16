@@ -2,7 +2,7 @@ process.env.NODE_ENV = 'test';
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const app = require('../index'); // or wherever your app file is
+const app = require('../app'); // or wherever your app file is
 const mongoose = require('mongoose');
 const Link = require('../models/link.model');
 
@@ -21,7 +21,7 @@ describe('🔗 Link API', () => {
 
   let testId;
 
-  it('POST /api/links - should create a new link', (done) => {
+  it('POST /links - should create a new link', (done) => {
     const newLink = {
       title: 'OpenAI',
       url: 'https://openai.com',
@@ -29,7 +29,7 @@ describe('🔗 Link API', () => {
     };
 
     chai.request(app)
-      .post('/api/links')
+      .post('/link')
       .send(newLink)
       .end((err, res) => {
         expect(res).to.have.status(201);
@@ -39,7 +39,7 @@ describe('🔗 Link API', () => {
       });
   });
 
-  it('GET /api/links - should get all links', (done) => {
+  it('GET /link - should get all links', (done) => {
     chai.request(app)
       .get('/api/links')
       .end((err, res) => {
@@ -49,7 +49,7 @@ describe('🔗 Link API', () => {
       });
   });
 
-  it('PUT /api/links/:id - should update a link', (done) => {
+  it('PUT /link/:id - should update a link', (done) => {
     chai.request(app)
       .put(`/api/links/${testId}`)
       .send({ notes: 'AI tools link' })
@@ -60,7 +60,7 @@ describe('🔗 Link API', () => {
       });
   });
 
-  it('DELETE /api/links/:id - should delete a link', (done) => {
+  it('DELETE /link/:id - should delete a link', (done) => {
     chai.request(app)
       .delete(`/api/links/${testId}`)
       .end((err, res) => {
