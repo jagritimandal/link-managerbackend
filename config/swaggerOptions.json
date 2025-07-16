@@ -1,0 +1,19 @@
+{
+    "options": {
+        "definition": {
+            "openapi": "3.0.0",
+            "info": {
+                "title": "link-manager backend API",
+                "version": "1.0.0",
+                "description": "API documentation for Link Management System."
+            },
+            "servers": [
+                {
+                    "url": "http://localhost:5000",
+                    "description": "local"
+                }
+                
+            ]
+        }
+    }
+}
