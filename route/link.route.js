@@ -11,6 +11,6 @@ router.post('/', linkController.createLink);
 router.put('/:id', linkController.updateLink);
 
 // DELETE a link
-router.delete('/:id', linkControllerdeleteLink);
+router.delete('/:id', linkController.deleteLink);
 
 module.exports = router;

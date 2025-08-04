@@ -2,7 +2,7 @@
 const express = require('express');
 
 // Routes import
-const linkRoute = require('./routes/link.route');
+const linkRoute = require('./route/link.route');
 
 //conneting to database
 const connectDB = require('./config/db');
@@ -18,7 +18,7 @@ const specs = swaggerJsdoc(swagger_option);
 const cors = require('cors');
 
 // dotenv for environment variables
-require('dotenv').config();
+require('dotenv').config({ debug: true});
 
 // Connect to MongoDB and start server
 connectDB();

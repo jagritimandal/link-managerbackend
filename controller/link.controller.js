@@ -1,5 +1,5 @@
 const linkService = require('../service/link.service');
-const { linkSchema } = require('../validators/link.validate');
+const { linkSchema } = require('../validation/link.validate');
 
 const linkController = {
   // GET /api/links
