@@ -1,46 +1,46 @@
-//express server setup
+// Express server setup
 const express = require('express');
 
 // Routes import
 const linkRoute = require('./route/link.route');
 
-//conneting to database
+// Connecting to database
 const connectDB = require('./config/db');
 
-// swagger doc packages
-const swaggerJsdoc = require("swagger-jsdoc");
-const swaggerUi = require("swagger-ui-express");
-const swagger_option = require('./config/swaggerOptions.json').options;
-swagger_option.apis = ['./docs/**/*.yaml'];
-const specs = swaggerJsdoc(swagger_option);
+// Swagger doc packages
+const swaggerJsdoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
+const swaggerOptions = require('./config/swaggerOptions.json').options;
+swaggerOptions.apis = ['./docs/**/*.yaml']; // Ensure this path is correct
+const specs = swaggerJsdoc(swaggerOptions);
 
-//cors
+// CORS
 const cors = require('cors');
 
 // dotenv for environment variables
-require('dotenv').config({ debug: true});
+require('dotenv').config();
 
-// Connect to MongoDB and start server
-connectDB();
-
+// Create Express app
 const app = express();
 
+// Connect to MongoDB
+connectDB();
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
 // Routes
-app.use('/links', linkRoute);
-app.use(
-    "/api-docs",
-    swaggerUi.serve,
-    swaggerUi.setup(specs)
-);
+app.use('/link', linkRoute);
+
+// Swagger API docs
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+
 // Start server
-const PORT = process.env.PORT || PORT;
+const PORT = process.env.PORT || 5000; // ❗Fix: fallback to hardcoded 5000 if env is undefined
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}.....`);
-  console.log(`Swagger docs at http://localhost:${PORT}/api-docs`);
+  console.log(`🚀 Server running on port ${PORT}`);
+  console.log(`📚 Swagger docs available at http://localhost:${PORT}/api-docs`);
 });
+
 module.exports = app;
